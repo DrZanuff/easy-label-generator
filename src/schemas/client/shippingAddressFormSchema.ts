@@ -15,7 +15,7 @@ export const getDefaultAddressFormValues = (): AddressFormValues => ({
   residential: false,
 })
 
-export const addressSchema: yup.Schema<AddressFormValues> = yup.object({
+export const addressFormSchema: yup.Schema<AddressFormValues> = yup.object({
   street1: yup.string().required('Street 1 is required'),
   street2: yup.string().optional(),
   city: yup.string().required('City is required'),
@@ -29,9 +29,11 @@ export const addressSchema: yup.Schema<AddressFormValues> = yup.object({
   residential: yup.boolean().optional(),
 })
 
-export const shippingSchema = yup.object({
-  from: addressSchema.required(),
-  to: addressSchema.required(),
+export const shippingAddressFormSchema = yup.object({
+  from: addressFormSchema.required(),
+  to: addressFormSchema.required(),
 })
 
-export type ShippingSchemaType = yup.InferType<typeof shippingSchema>
+export type TShippingAddressFormType = yup.InferType<
+  typeof shippingAddressFormSchema
+>

@@ -1,12 +1,12 @@
 import Image from 'next/image'
 import styles from './page.module.css'
-import { ShippingForm } from '@/src/components/ShippingForm'
+import { Main } from '@/src/components/pages/Main'
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <ShippingForm />
+        <Main />
       </main>
       <footer className={styles.footer}>
         <a

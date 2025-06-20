@@ -14,6 +14,25 @@ type Props = {
   prefix: 'from' | 'to'
 }
 
+const placeholders: Record<'from' | 'to', Partial<AddressFormValues>> = {
+  from: {
+    street1: '417 Montgomery St',
+    street2: 'Floor 5',
+    city: 'San Francisco',
+    state: 'CA',
+    zip: '94104',
+    country: 'US',
+  },
+  to: {
+    street1: '179 N Harbor Dr',
+    street2: '',
+    city: 'Redondo Beach',
+    state: 'CA',
+    zip: '90277',
+    country: 'US',
+  },
+}
+
 export function AddressFormSection({
   control,
   errors,
@@ -22,6 +41,8 @@ export function AddressFormSection({
 }: Props) {
   const fieldError = (field: keyof AddressFormValues) =>
     errors?.[field]?.message as string | undefined
+
+  const placeholder = placeholders[prefix]
 
   return (
     <div>
@@ -33,6 +54,7 @@ export function AddressFormSection({
         render={({ field }) => (
           <TextField
             label="Street 1"
+            placeholder={placeholder.street1}
             {...field}
             error={!!fieldError('street1')}
             helperText={fieldError('street1')}
@@ -48,6 +70,7 @@ export function AddressFormSection({
         render={({ field }) => (
           <TextField
             label="Street 2"
+            placeholder={placeholder.street2}
             {...field}
             error={!!fieldError('street2')}
             helperText={fieldError('street2')}
@@ -64,6 +87,7 @@ export function AddressFormSection({
           render={({ field }) => (
             <TextField
               label="City"
+              placeholder={placeholder.city}
               {...field}
               error={!!fieldError('city')}
               helperText={fieldError('city')}
@@ -79,6 +103,7 @@ export function AddressFormSection({
           render={({ field }) => (
             <TextField
               label="State"
+              placeholder={placeholder.state}
               {...field}
               error={!!fieldError('state')}
               helperText={fieldError('state')}
@@ -94,6 +119,7 @@ export function AddressFormSection({
           render={({ field }) => (
             <TextField
               label="Country"
+              placeholder={placeholder.country}
               {...field}
               error={!!fieldError('country')}
               helperText={fieldError('country')}
@@ -111,6 +137,7 @@ export function AddressFormSection({
           render={({ field }) => (
             <TextField
               label="ZIP"
+              placeholder={placeholder.zip}
               {...field}
               error={!!fieldError('zip')}
               helperText={fieldError('zip')}
