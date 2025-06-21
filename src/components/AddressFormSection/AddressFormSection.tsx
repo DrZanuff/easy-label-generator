@@ -7,11 +7,12 @@ import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 
-type Props = {
+type AddressFormSectionProps = {
   control: Control<ShippingFormValues>
   errors: FieldErrors<AddressFormValues>
   sectionTitle?: string
   prefix: 'from' | 'to'
+  isLoading: boolean
 }
 
 const placeholders: Record<'from' | 'to', Partial<AddressFormValues>> = {
@@ -38,7 +39,8 @@ export function AddressFormSection({
   errors,
   sectionTitle,
   prefix,
-}: Props) {
+  isLoading,
+}: AddressFormSectionProps) {
   const fieldError = (field: keyof AddressFormValues) =>
     errors?.[field]?.message as string | undefined
 
@@ -60,6 +62,7 @@ export function AddressFormSection({
             helperText={fieldError('street1')}
             fullWidth
             margin="normal"
+            disabled={isLoading}
           />
         )}
       />
@@ -76,6 +79,7 @@ export function AddressFormSection({
             helperText={fieldError('street2')}
             fullWidth
             margin="normal"
+            disabled={isLoading}
           />
         )}
       />
@@ -93,6 +97,7 @@ export function AddressFormSection({
               helperText={fieldError('city')}
               fullWidth
               margin="normal"
+              disabled={isLoading}
             />
           )}
         />
@@ -109,6 +114,7 @@ export function AddressFormSection({
               helperText={fieldError('state')}
               fullWidth
               margin="normal"
+              disabled={isLoading}
             />
           )}
         />
@@ -125,6 +131,7 @@ export function AddressFormSection({
               helperText={fieldError('country')}
               fullWidth
               margin="normal"
+              disabled={isLoading}
             />
           )}
         />
@@ -143,6 +150,7 @@ export function AddressFormSection({
               helperText={fieldError('zip')}
               fullWidth
               margin="normal"
+              disabled={isLoading}
             />
           )}
         />
@@ -152,7 +160,13 @@ export function AddressFormSection({
           control={control}
           render={({ field }) => (
             <FormControlLabel
-              control={<Checkbox {...field} checked={field.value || false} />}
+              control={
+                <Checkbox
+                  {...field}
+                  checked={field.value || false}
+                  disabled={isLoading}
+                />
+              }
               label="Residential"
             />
           )}

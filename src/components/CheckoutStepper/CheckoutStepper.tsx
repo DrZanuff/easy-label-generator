@@ -1,7 +1,7 @@
 'use client'
 
 import { useAtom } from 'jotai'
-import { stepAtom } from '@/src/atoms/stepAtom'
+import { stepAtom } from '@/src/atoms/step'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'

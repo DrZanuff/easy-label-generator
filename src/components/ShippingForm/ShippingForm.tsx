@@ -14,10 +14,10 @@ import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import toast from 'react-hot-toast'
 import { ValidateAddressResponse } from '@/src/types/api'
-import { normalizeAddress } from '@/src/helpers/clean'
+import { normalizeAddress } from '@/src/helpers/normalizeAddress'
 import { useSetAtom } from 'jotai'
 import { fromAddressIdAtom, toAddressIdAtom } from '@/src/atoms/address'
-import { stepAtom } from '@/src/atoms/stepAtom'
+import { stepAtom } from '@/src/atoms/step'
 
 export function ShippingForm() {
   const methods = useForm({
@@ -86,7 +86,7 @@ export function ShippingForm() {
   }
 
   return (
-    <Paper>
+    <Paper sx={{ p: 2 }}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack flexDirection="row" gap={2} padding={2}>
@@ -95,12 +95,14 @@ export function ShippingForm() {
               errors={errors.to || {}}
               sectionTitle="To Address"
               prefix="to"
+              isLoading={isLoading}
             />
             <AddressFormSection
               control={control as any}
               errors={errors.from || {}}
               sectionTitle="From Address"
               prefix="from"
+              isLoading={isLoading}
             />
           </Stack>
           <Button
