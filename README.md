@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Easy Label Generator
 
-## Getting Started
+Easy Label Generator is a simple Next.js web application designed to create and purchase shipping labels using the EasyPost API. The user can input sender and recipient addresses, define the parcel dimensions, and generate a shipping label ready for printing or download.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Address form with validation using Yup (client) and Zod (server)
+- Parcel information form with validation
+- Integration with EasyPost API for address verification, shipment creation, and label purchase
+- Multi-step user flow managed via a MUI Stepper and global state using Jotai
+- Display of the generated shipping label with options to:
+
+  - Download the label
+  - Print the label directly
+  - Start a new shipment
+
+- Skeleton placeholder while the shipping label is loading
+- Responsive and accessible UI using Material UI components
+
+## Technologies Used
+
+- **Next.js (v15)** — React framework for SSR and SSG
+- **React (v18)**
+- **TypeScript**
+- **Material UI (v7)** — for the component library and styling
+- **Jotai (v2)** — global state management
+- **React Hook Form (v7)** — form handling
+- **Yup** — form validation (client side)
+- **Zod** — schema validation (server side)
+- **React Hot Toast** — toast notifications
+- **EasyPost Node.js SDK** — API integration
+
+## API
+
+This project integrates with the [EasyPost API](https://docs.easypost.com/guides/getting-started?lang=javascript) to:
+
+- Validate shipping addresses
+- Create shipments with provided address and parcel data
+- Purchase the shipment
+- Retrieve the generated shipping label (PNG)
+
+## Project Structure
+
+```
+src/
+├── components/      // UI components (forms, steppers, label preview, etc.)
+├── atoms/          // Jotai global state atoms
+├── schemas/        // Yup (client) and Zod (server) validation schemas
+├── helpers/        // Utility functions
+├── types/          // TypeScript types
+├── pages/api/      // Next.js API routes (address validation, shipment creation & buy)
+└── app/            // Main app entry point
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Configuration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run this project locally, you need to provide your **EasyPost Secret API Key**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Copy the `.env.example` file and rename it to `.env.local`:
 
-## Learn More
+```
+cp .env.example .env.local
+```
 
-To learn more about Next.js, take a look at the following resources:
+2. Update the environment variable in `.env.local`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+EASYPOST_SECRET_API_KEY=your_secret_key_here
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+You can get your EasyPost API key from your [EasyPost Dashboard](https://www.easypost.com/account/api-keys).
 
-## Deploy on Vercel
+## Running the Project
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Install dependencies:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+npm install
+```
+
+2. Run the development server:
+
+```
+npm run dev
+```
+
+3. Open your browser and go to:
+
+```
+http://localhost:3000
+```
+
+## Technical Decisions
+
+- **Next.js App Router** is used for modern server-side capabilities and API routes.
+- **React Hook Form** simplifies form state and validation handling on the client.
+- **Jotai** is used for lightweight global state to control the current step and store the label URL.
+- **EasyPost API SDK** manages shipping logistics, removing the need to manually handle carrier integrations.
+- **Server-side Zod validation** ensures payload safety before interacting with the EasyPost API.
+- **Client-side Yup validation** offers immediate form feedback for a better user experience.
+- The shipping label is not stored in the application but retrieved directly via URL after the shipment is bought.
+
+## Demo Video
+
+A demo video of the application in action is available here:
